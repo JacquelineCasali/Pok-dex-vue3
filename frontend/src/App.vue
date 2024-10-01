@@ -1,10 +1,5 @@
-
-
-
-
- 
  <template>
-  <body color-scheme="isDark ?'dark':'light'">
+
  
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container-fluid">
@@ -35,17 +30,18 @@
 <div class="main">
     <router-view></router-view>
   </div>
-</body>
+
 
 <footer class="bg-primary text-light">
   <div>Desenvolvido por Jacqueline Casali</div>
 </footer>
+
 </template>
 
 <script  lang="ts">
 import Dark from './components/Dark.vue';
 export default {
-  name:"App",
+  // name:"App",
   components:{
     Dark,
   }
