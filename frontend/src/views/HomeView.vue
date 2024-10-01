@@ -3,7 +3,10 @@
 </script>
 
 <template>
-  <main>
+  <body>
+      <!-- <main> -->
  Home
-  </main>
+  <!-- </main> -->
+  </body>
+
 </template>
