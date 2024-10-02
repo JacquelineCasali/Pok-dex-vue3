@@ -4,12 +4,11 @@ const pokemon =defineProps(["name","urlSvg"])
 </script>
 
 <template>
-<div class="col-4">
+<div class="col-4 ">
   <div  class="card p-2 mb-4 cardListPokemon">
     <p class="text-center text-capitalize fs-5 fw-bold">{{pokemon.name}}</p>
     <img :src="urlSvg" class="card-img-top" alt="..."
     height="80">
-
   </div>
 
 </div>
