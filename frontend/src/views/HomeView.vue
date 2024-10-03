@@ -1,7 +1,6 @@
 <script setup>
 import { onMounted, reactive, ref, computed  } from 'vue';
 import ListPokemon from '../components/ListPokemon.vue';
-//import CardPokemon from '../components/CardPokemon.vue';
 
 let urlSvg=ref("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/")
 
@@ -9,10 +8,12 @@ let pokemons = reactive(ref());
 // pesquisar 
 let searchPokemonField= ref("")
 let pokemonSelected = reactive(ref());
+
+// carregamento de pagina 
+let loading=ref(false)
 onMounted(()=>{
   // requisição do api
-
-fetch("https://pokeapi.co/api/v2/pokemon?limit=1302&offset=0")
+fetch(`https://pokeapi.co/api/v2/pokemon?limit=1302&offset=0`)
 .then(res=>res.json())
 .then(res=> pokemons.value=res.results
 );
@@ -27,12 +28,14 @@ const pokemonsFilterd=computed (()=>{
   }
   return pokemons.value
 })
-
+// clica no card
 const selectPokemon = async(pokemon)=>{
+  loading.value=true;
   await fetch(pokemon.url)
 .then(res=>res.json())
-.then(res=> pokemonSelected.value=res);
-
+.then(res=> pokemonSelected.value=res)
+.catch(err=>alert(err))
+.finally(()=>loading.value.false)
 console.log(pokemonSelected.value)
 }
 
@@ -60,39 +63,35 @@ console.log(pokemonSelected.value)
                 id="searchPokemonField" 
                 placeholder="Pesquisar...">
               </div>
-    <div class="col-sm-12 col-md-6 ">
+        
+
+              <div class="col-sm-12 col-md-6 ">
   
 <!-- card detalhe -->
 
- <div class="card " >
+ <div  class="card CardPokemonSelected " 
+ :class=" loading ? '':'animate__animated animate__flipIny'" >
+  
 
-    <img :src=" pokemonSelected?.sprites.other.dream_world.front_default"
+
+    <img
+    v-if="pokemonSelected?.name"
+    :src=" pokemonSelected?.sprites.other.dream_world.front_default"
       class="card-img-top pt-2" :alt="pokemonSelected?.name"
-      height="120"
+      height="95"
+     > 
+     <img 
+     v-else
+     src="../assets/pokemon.svg"
+      class="card-img-top pt-2" alt="???"
+      height="250"
      > 
      <div class="card-body" v-if="pokemonSelected">
-    <h5 class="card-title text-center text-capitalize fs-2 fw-700">{{pokemonSelected?.name}}</h5>
-     
-  
-     <hr>
-     
-       <h3 class="mb-1 fs-2 fw-700 fst-italic text-decoration-underline"  
-      style=" color: rgb(255,84,115);">Estatísticas</h3>
-<div v-for="(stat,index) in pokemonSelected.stats " :key="index">
-<span  class="d-flex justify-content-between flex-direction-row fs-4 lh-base ">{{ stat.stat.name }}
-<strong>
-  {{ stat.base_stat }}
-</strong>  
-</span>
-</div>
+   
+   <div>
 
-
-
-<h3 class="mb-3 fs-2 fw-700 fst-italic text-decoration-underline
-d-flex justify-content-center "  
-style=" color: rgb(255,84,115);">Tipos</h3>
-
-<ul class="list-group d-flex justify-content-center flex-row" >
+    <h5 class=" text-center text-capitalize fs-2 fw-700">{{pokemonSelected?.name }}</h5>
+    <ul class="list-group d-flex justify-content-center flex-row" >
   <li class="
   text-capitalize 
   badge text-body-secondary rounded-pill p-2 fs-5 bg-secondary-subtle " style="width: 25% ;margin-right: 10px;"
@@ -101,28 +100,25 @@ style=" color: rgb(255,84,115);">Tipos</h3>
 
   </li>
 </ul>
-
-
+   </div>
+     
+  
+    
+     
+ <h3 class="mb-1 fs-2 fw-700 fst-italic text-decoration-underline"  
+      style=" color: rgb(255,84,115);">Estatísticas</h3>
+<div v-for="(stat,index) in pokemonSelected.stats " :key="index"
+class="d-flex justify-content-between flex-direction-row fs-4 lh-base ">
+<span >{{ stat.stat.name }}
+ </span>
+<strong>
+  {{ stat.base_stat }}
+</strong> 
+</div>
 
 </div>
 </div> 
 
-
-
-
-  <!-- <CardPokemon 
-   
-:name="pokemonSelected?.name"
-:img="pokemonSelected?.sprites.other.dream_world.front_default"
-:statname="pokemonSelected?.stat.name"
-:basestat="pokemonSelected?.stat.base_stat"
-/> -->
-
-
-
-
-
-<!-- :nameesta="pokemonSelected?.stats.stat.name" -->
 </div>
 <div class="col-sm-12 col-md-6">
   <div class="card card-list" >
@@ -130,8 +126,7 @@ style=" color: rgb(255,84,115);">Tipos</h3>
  
 
       <ListPokemon
-v-for="pokemon in pokemonsFilterd":key="pokemon.id"
-:id="pokemon.id"
+v-for="pokemon in pokemonsFilterd":key="pokemon.name"
 :name="pokemon.name"
 :urlSvg="urlSvg + pokemon.url.split('/')[6]+'.svg'"
 @click="selectPokemon(pokemon)"
@@ -153,14 +148,34 @@ v-for="pokemon in pokemonsFilterd":key="pokemon.id"
 
 </template>
 <style scoped>
+
+.CardPokemonSelected{
+   height: 70vh;
+   background: rgb(72,63,251);
+   background: radial-gradient(circle, rgba(220, 194, 106, 0.8) 0%, rgba(244, 0, 0, 0.8) 100%);
+}
 .card-list{
-  max-height: 450px;
+  max-height: 70vh;
 overflow-y:scroll;
 overflow-x: hidden;
 }
+
+
+/* .CardPokemonSelected img{
+    height: 250px;
+} */
 @media (max-width: 768px) {
   .card-list{
     max-height: 48vh;
   }
+
+  .CardPokemonSelected{
+        height: 68vh;
+        width: 100%;
+        margin: 0 auto 10px auto;
+    }
+    .CardPokemonSelected img{
+        height: 100px;
+    }
 }
 </style>

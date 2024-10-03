@@ -26,6 +26,9 @@ const toggleDark=useToggle(isDark);
 
     </template>
     <style>
+    body{
+        height: 100vh;
+    }
 /* The switch - the box around the slider */
 .switch {
   position: relative;
@@ -91,7 +94,8 @@ input:checked + .slider:before {
 }
 
 [color-scheme='dark']{
-    background-color: rgb(57,57,57);
+    background: rgb(106,196,233);
+    background: linear-gradient(0deg, rgba(106,196,233,0.9360119047619048) 0%, rgba(0,41,150,1) 100%);
 
 }
 [color-scheme='light']{
