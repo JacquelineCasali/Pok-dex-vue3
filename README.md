@@ -9,7 +9,8 @@ https://pok-dex-vue3.vercel.app/
 
 ## Imagem do Projeto
 <!-- ![cardapio](/cardapio.gif) -->
-<img src="./frontend/src/assets/2024-10-04_061920.png/>
+
+<img src="./frontend/src/assets/2024-10-04_061920.png"/>
 
 
 ## Repositorio do Projeto para clonar

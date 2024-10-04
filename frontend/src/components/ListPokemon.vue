@@ -4,7 +4,7 @@ const pokemon =defineProps(["name","urlSvg","id"])
 </script>
 
 <template>
-<div class="col-4 ">
+<div class="col-4 col-md-6 col-xl-4 ">
   <div  class="card p-2 mb-4 cardListPokemon">
     <p>{{ pokemon.id }}</p>
     <p class="text-center text-capitalize fs-5 fw-bold">{{pokemon.name}}</p>

@@ -1,4 +1,4 @@
-<script setup>
+<script setup >
 import { onMounted, reactive, ref, computed  } from 'vue';
 import ListPokemon from '../components/ListPokemon.vue';
 
@@ -46,7 +46,7 @@ console.log(pokemonSelected.value)
       <main>
  <div class="container text-body-secondary">
 
-  <div class="row mt-4">
+  <div class="row mt-3">
        <!-- busca -->
        <div class="mb-3">
                 <label 
@@ -78,13 +78,13 @@ console.log(pokemonSelected.value)
     v-if="pokemonSelected?.name"
     :src=" pokemonSelected?.sprites.other.dream_world.front_default"
       class="card-img-top pt-2" :alt="pokemonSelected?.name"
-      height="95"
+    style="height: 95px;"
      > 
      <img 
      v-else
      src="../assets/pokemon.svg"
-      class="card-img-top pt-2" alt="???"
-      height="250"
+      class="card-img-top pt-2 " alt="???"
+     style="height: 250px;"
      > 
      <div class="card-body" v-if="pokemonSelected">
    
@@ -150,12 +150,14 @@ v-for="pokemon in pokemonsFilterd":key="pokemon.name"
 <style scoped>
 
 .CardPokemonSelected{
-   height: 68vh;
+   height: 70vh;
    background: rgb(72,63,251);
    background: radial-gradient(circle, rgba(220, 194, 106, 0.8) 0%, rgba(244, 0, 0, 0.8) 100%);
 }
+
+
 .card-list{
-  max-height: 68vh;
+  max-height: 70vh;
 overflow-y:scroll;
 overflow-x: hidden;
 }
