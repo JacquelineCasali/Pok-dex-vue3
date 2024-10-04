@@ -150,12 +150,12 @@ v-for="pokemon in pokemonsFilterd":key="pokemon.name"
 <style scoped>
 
 .CardPokemonSelected{
-   height: 70vh;
+   height: 68vh;
    background: rgb(72,63,251);
    background: radial-gradient(circle, rgba(220, 194, 106, 0.8) 0%, rgba(244, 0, 0, 0.8) 100%);
 }
 .card-list{
-  max-height: 70vh;
+  max-height: 68vh;
 overflow-y:scroll;
 overflow-x: hidden;
 }
